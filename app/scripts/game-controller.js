@@ -57,3 +57,19 @@ actionButtons.each(function () {
     }
   })
 })
+
+const keysPressed = new Array()
+const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 'a', 'b']
+
+$(document).keypress(function(evt) {
+  const key = evt.keyCode || String.fromCharCode(evt.which)
+  keysPressed.push(key)
+
+  if (keysPressed.length > 10) {
+    keysPressed.shift()
+  }
+
+  if (arraysEqual(keysPressed, konamiCode)) {
+    gameController.goToSection($('#death'))
+  }
+})
