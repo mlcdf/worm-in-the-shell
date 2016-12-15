@@ -1,20 +1,20 @@
 const actionButtons = $('button[go]')
 const sections = $('.section')
 
-// Hide all the section exect the first one.
+let currentSection = sections.first()
+
+// Hide all the section except the first one
 sections.slice(1).hide()
 
 actionButtons.each(function () {
   // btn stores the current button
   const btn = $(this)
 
-  // When a button is clicked, do
-  $(this).click(() => {
-
-    // Hide the current section
-    $(this).parents('.section').hide()
+  btn.click(() => {
+    currentSection.hide()
 
     // Show the section pointed by the button attribut 'go'
-    $('#' + btn.attr('go')).show()
+    currentSection = $('#' + btn.attr('go'))
+    currentSection.show()
   })
 })
