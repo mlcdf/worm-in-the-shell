@@ -1,6 +1,13 @@
 const actionButtons = $('button[go]')
 const sections = $('.section')
 
+const lives = {
+  initial:  3,
+  current: 3
+}
+
+$('.life span.value').html(lives.current)
+
 let currentSection = sections.first()
 
 // Hide all the section except the first one
@@ -11,10 +18,26 @@ actionButtons.each(function () {
   const btn = $(this)
 
   btn.click(() => {
-    currentSection.hide()
+    goToSection($('#' + btn.attr('go')))
 
-    // Show the section pointed by the button attribut 'go'
-    currentSection = $('#' + btn.attr('go'))
-    currentSection.show()
+    if (currentSection.find('action[name="hit"]').length > 0) {
+      lives.current--
+      $('.life span.value').html(lives.current)
+    }
+
+    if (lives.current === 0) {
+      goToSection($('#death'))
+      $('#death > button[go="intro"]').click(() => {
+        lives.current = lives.initial
+        goToSection($('#intro'))
+      })
+    }
   })
 })
+
+function goToSection(section) {
+  currentSection.hide()
+  currentSection = section
+  currentSection.show()
+  return currentSection
+}
