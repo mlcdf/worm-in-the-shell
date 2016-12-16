@@ -22,16 +22,33 @@ const GameController = () => {
     return currentSection
   }
 
+  const displaySection = () => {
+    currentSection.find('p').hide()
+    currentSection.find('button').hide()
+    currentSection.find('h2').typewrite({
+      callback: function () {
+        currentSection.find('p').typewrite({
+          callback: function () {
+            currentSection.find('button').show()
+          }
+        })
+      }
+    })
+  }
+
   return {
     updateLives,
     goToSection,
-    player
+    player,
+    displaySection
   }
 }
 
 let gameController = GameController()
 
 let currentSection = sections.first()
+
+gameController.displaySection()
 
 // Hide all the section except the first one
 sections.slice(1).hide()
@@ -42,6 +59,7 @@ actionButtons.each(function () {
 
   btn.click(() => {
     gameController.goToSection($('#' + btn.attr('go')))
+    gameController.displaySection()
 
     if (currentSection.find('action[name="hit"]').length > 0) {
       gameController.player.loseLife()
