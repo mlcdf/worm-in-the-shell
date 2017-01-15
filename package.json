@@ -3,6 +3,9 @@
   "engines": {
     "node": ">=4"
   },
+  "scripts": {
+    "test": "xo"
+  },
   "devDependencies": {
     "babel-core": "^6.4.0",
     "babel-preset-es2015": "^6.3.13",
@@ -28,19 +31,26 @@
     "gulp-useref": "^3.0.0",
     "main-bower-files": "^2.5.0",
     "run-sequence": "^1.2.2",
-    "wiredep": "^4.0.0"
+    "wiredep": "^4.0.0",
+    "xo": "^0.17.1"
   },
-  "eslintConfig": {
-    "env": {
-      "es6": true,
-      "node": true,
-      "browser": true
-    },
+  "xo": {
+    "esnext": true,
+    "space": true,
+    "semicolon": false,
+    "envs": ["browser", "jquery"],
     "rules": {
-      "quotes": [
-        2,
-        "single"
-      ]
-    }
+      "new-cap": 0
+    },
+    "overrides": [
+      {
+        "files": "test/**/*.js",
+        "envs": ["mocha"]
+      },
+      {
+         "files": "gulpfile.js",
+         "envs": ["node"]
+      }
+    ]
   }
 }
