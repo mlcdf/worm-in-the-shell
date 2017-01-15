@@ -1,29 +1,21 @@
-body {
-	font-size : 13pt;
-	font-family : "Trebuchet MS", Arial, sans-serif;
-}
-
-h2 {
-	margin-top : 0px;
-	font-weight : bold;
-}
+$grey: #333;
 
 #status {
 	position : absolute;
 	top : 0px;
 	width : 100%;
 	text-align : center;
-	border-bottom : 1px solid lightGray;
+	border-bottom : 1px solid $grey;
 }
 
 #status div {
 	display : inline-block;
 	padding : 10px 20px;
 	color : gray;
-	border-left : 1px solid lightGray;
-	border-right : 1px solid lightGray;
+	border-left : 1px solid $grey;
+	border-right : 1px solid $grey;
 }
-#status div+div {
+#status div + div {
 	border-left : none;
 }
 
@@ -32,7 +24,7 @@ h2 {
 	margin : auto;
 	margin-top : 100px;
 	max-width : 600px;
-	border : 1px solid lightGray;
+	border : 1px solid $grey;
 }
 .section#intro {
 	display : block;
@@ -44,7 +36,7 @@ h2 {
 	text-decoration : none;
 	padding : 5px;
 	margin-top : 30px;
-	background : lightGray;
+	background : $grey;
 	border : none;
 	cursor : pointer;
 }
@@ -53,7 +45,7 @@ h2 {
 }
 
 .section button:hover {
-	color : lightGray;
+	color : $grey;
 	background-color : black;
 }
 

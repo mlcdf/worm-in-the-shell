@@ -28,95 +28,31 @@
       <div class="life">
         Lives : <span class="value">--</span>
       </div>
-     </div>
-
-
-    <div class="section" id="intro">
-      <h2>Welcome programs.</h2>
-      <p>You have been selected to participate to the 1337th annual Undefined Games.</p>
-
-      <action name="reset"/>
-
-      <button go="wakeUp">Commencer l'aventure !</button>
     </div>
 
-
-    <div class="section" id="wakeUp">
-      <p>Vous ouvez les yeux... Tout est noir autour de vous...</p>
-
-      <action name="start"/>
-
-      <button go="cavern">Se relever</button>
-    </div>
-
-
-    <div class="section" id="cavern">
-      <p>Vous êtes dans une caverne sombre. La seule issue semble être
-      une porte à quelques mètres de là.</p>
-
-      <button go="doorLocked">Sortir</button>
-      <button go="wait">Attendre</button>
-      <button go="examine">Examiner le sol</button>
-    </div>
-
-
-    <div class="section" id="examine">
-      <p>Rien de plus que des petits cailloux et de la poussière...</p>
-
-      <button go="doorLocked">Sortir</button>
-      <button go="wait">Attendre</button>
-    </div>
-
-
-    <div class="section" id="wait">
-      <p>Vous attendez quelques minutes, mais rien ne se passe...</p>
-      <button go="wait">Continuer à attendre</button>
-      <button go="hitWall">Se taper la tête contre le mur</button>
-      <button go="doorLocked">Sortir</button>
-      <button go="examine">Examiner le sol</button>
-    </div>
-
-
-    <div class="section" id="hitWall">
-      <p>Aie ! Vous perdez 1 point de vie...</p>
-      <p>Quelque chose tombe du plafond : une clé était cachée dans une
-      faille.</p>
-
-      <action name="hit"/>
-
-      <button go="exit">Utiliser la clé et ouvrir la porte</button>
-    </div>
-
-
-    <div class="section" id="doorLocked">
-      <p>Malheureusement, une porte en bois bloque le passage. Elle a l'air vraiment solide&nbsp;:
-      peu probable que vous puissiez la défoncer.</p>
-      <button go="hitDoor">Donner un grand coup d'épaule</button>
-      <button go="cavern">Retourner sur vos pas</button>
-    </div>
-
-
-    <div class="section" id="hitDoor">
-      <p>BLAM ! La porte n'a pas bougé d'un poil. Par contre, votre épaule, elle, s'est enfoncée de quelques centimètres.</p>
-      <p>Vous perdez 1 point de vie.</p>
-
-      <action name="hit"/>
-
-      <button go="hitDoor">Ré-essayer !</button>
-      <button go="cavern">Retourner sur vos pas</button>
-    </div>
-
-
-    <div class="section" id="exit">
-      <p>Vous voyez la lumière du jour... Vous avez réussi à vous échapper !</p>
-      <button go="intro">Fin</button>
-    </div>
-
-
-    <div class="section" id="death">
-      <p>Vous êtes mort(e) ! C'est balot.</p>
-      <button go="intro">Fin</button>
-    </div>
+    <main>
+      <div class="shell">
+        <ul>
+          <li>INIT PROGRAM</li>
+          <li>MISSION: TAKE CONTROL OF THE INTERNET (Yep, that's right!)</li>
+          <li>READY! </li>
+          <li>&nbsp;</li>
+          <li>Select an action (&uarr;&darr; + ENTER)</li>
+          <li>
+            <form action="">
+              <div>
+                <input type="radio" id="radio1" name="action" value="find-current-location" checked="checked">
+                <label for="radio1">find current location</label>
+              </div>
+              <div>
+                <input type="radio" id="radio2" name="action" value="lolz">
+                <label for="radio2">yolo</label>
+              </div>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </main>
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
@@ -128,7 +64,7 @@
     <script src="scripts/utils.js"></script>
     <script src="scripts/typewriter.js"></script>
     <script src="scripts/player.js"></script>
-    <script src="scripts/game-controller.js"></script>
+    <script src="scripts/input.js"></script>
     <!-- endbuild -->
   </body>
 </html>
