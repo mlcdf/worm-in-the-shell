@@ -51,7 +51,7 @@ const shell = () => {
 
   function updateScroll() {
     const element = $shell.find('ul')
-    element.scrollTop = element.scrollHeight
+    element.scrollTop(element.prop('scrollHeight'))
   }
 
   let idCounter = 3
