@@ -36,17 +36,20 @@ const shell = () => {
     }
   })
 
-  const sectionTemplate = doT.template(`<li>
-    <div>{{= it.text }}</div>
-    <div>? Next move? <span class="grey">(</span>&uarr;&darr; <span class="grey">+</span> ENTER<span class="grey">)</span></div>
-    <form action="">
-      {{~ it.inputs :input:index }}
-      <div>
-        <input type="radio" id="radio{{=index+it.index}}" name="action" value="{{=input.value}}" checked="checked">
-        <label for="radio{{=index+it.index}}">{{=input.label}}</label>
-      </div>
-      {{~}}
-    </form>
+  const formTemplate = doT.template(`<li>&nbsp;
+  </li>
+    <li>
+      ? WHAT SHOULD I DO? <span class="grey">(</span>&uarr;&darr; <span class="grey">+</span> ENTER<span class="grey">)</span>
+    </li>
+    <li>
+      <form action="">
+        {{~ it.inputs :input:index }}
+        <div>
+          <input type="radio" id="radio{{=index+it.index}}" name="action" value="{{=input.value}}" checked="checked">
+          <label for="radio{{=index+it.index}}">{{=input.label}}</label>
+        </div>
+        {{~}}
+      </form>
   </li>`)
 
   function updateScroll() {
@@ -63,14 +66,25 @@ const shell = () => {
     $.getJSON('http://0.0.0.0:3000/?section=' + val).done(data => {
       idCounter += 2
       data.index = idCounter
-      const $section = $(sectionTemplate(data))
-      $section.appendTo($shell.find('ul')).focus()
-      updateScroll()
-      $shell.off()
-      $shell.find('form:last-child').focus()
-      $shell.on('click', () => {
-        $shell.find('form:last-child').focus()
+
+      let time = 0
+
+      $.each(data.paragraphs, (index, paragraph) => {
+        setTimeout(() => {
+          $(`<li>${paragraph}</li>`).appendTo($shell.find('ul'))
+          updateScroll()
+        }, time += 300)
       })
+
+      setTimeout(() => {
+        $(formTemplate(data)).appendTo($shell.find('ul'))
+        updateScroll()
+        $shell.off()
+        $shell.find('form').last().find('input').focus()
+        $shell.on('click', () => {
+          $shell.find('form').last().find('input').focus()
+        })
+      }, time += 300)
     })
   })
 }
