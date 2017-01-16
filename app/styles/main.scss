@@ -2,6 +2,7 @@
 // endbower
 
 $grey: #333;
+$pink: #ff4081;
 
 body {
   background: #000;
@@ -16,6 +17,10 @@ body {
 
 .grey {
  color: $grey;
+}
+
+.blue {
+  color: #40c4ff;
 }
 
 .browserupgrade {
@@ -74,14 +79,14 @@ main {
     }
 
     input[type="radio"]:checked + label {
-      background-color: magenta;
+      background-color: $pink;
       color: white;
     }
   }
 
   .status-bar {
     position: absolute;
-    top: 8px;
+    top: 2px;
     left: 0;
     right: 0;
     text-align: center;

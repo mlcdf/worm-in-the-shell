@@ -39,7 +39,7 @@ const shell = () => {
   const formTemplate = doT.template(`<li>&nbsp;
   </li>
     <li>
-      ? WHAT SHOULD I DO? <span class="grey">(</span>&uarr;&darr; <span class="grey">+</span> ENTER<span class="grey">)</span>
+      <span class="blue">?</span> WHAT SHOULD I DO? <span class="grey">(</span>&uarr;&darr; <span class="grey">+</span> ENTER<span class="grey">)</span>
     </li>
     <li>
       <form action="">
