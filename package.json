@@ -39,6 +39,7 @@
     "space": true,
     "semicolon": false,
     "envs": ["browser", "jquery"],
+    "globals": ["doT"],
     "rules": {
       "new-cap": 0
     },

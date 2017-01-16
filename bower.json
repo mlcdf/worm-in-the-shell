@@ -2,7 +2,8 @@
   "name": "sword-sorcery",
   "private": true,
   "dependencies": {
-    "jquery": "~2.1.1"
+    "jquery": "~2.1.1",
+    "dot": "^1.1.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",

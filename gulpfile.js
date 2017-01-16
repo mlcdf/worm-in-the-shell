@@ -98,7 +98,8 @@ gulp.task('serve', () => {
         baseDir: ['.tmp', 'app'],
         routes: {
           '/bower_components': 'bower_components'
-        }
+        },
+        cors: true
       }
     })
 
