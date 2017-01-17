@@ -38,20 +38,32 @@
     "esnext": true,
     "space": true,
     "semicolon": false,
-    "envs": ["browser", "jquery"],
-    "globals": ["doT"],
+    "envs": [
+      "browser",
+      "jquery"
+    ],
+    "globals": [
+      "doT"
+    ],
     "rules": {
       "new-cap": 0
     },
     "overrides": [
       {
         "files": "test/**/*.js",
-        "envs": ["mocha"]
+        "envs": [
+          "mocha"
+        ]
       },
       {
-         "files": "gulpfile.js",
-         "envs": ["node"]
+        "files": "gulpfile.js",
+        "envs": [
+          "node"
+        ]
       }
     ]
+  },
+  "dependencies": {
+    "dot": "^1.1.1"
   }
 }
