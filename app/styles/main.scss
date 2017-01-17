@@ -1,8 +1,11 @@
 // bower:scss
 // endbower
 
+$silver: #666;
 $grey: #333;
 $pink: #ff4081;
+$yellow: #ffeb3b;
+$blue: #40c4ff;
 
 body {
   background: #000;
@@ -20,7 +23,11 @@ body {
 }
 
 .blue {
-  color: #40c4ff;
+  color: $blue;
+}
+
+.yellow {
+  color: $yellow;
 }
 
 .browserupgrade {
@@ -45,13 +52,22 @@ main {
 
 .shell {
   min-height: 600px;
-  min-width: 800px;
-  border: solid 1px $grey;
-  border-radius: 5px;
+  width: 800px;
+  // border: solid 1px $yellow;
+  border-radius: 4px;
   padding: 32px;
   font-family: monospace;
   font-size: 16px;
   position: relative;
+  border-top: 1px solid $blue;
+  border-bottom: 1px solid $pink;
+  box-sizing: border-box;
+  background-position: 0 0, 100% 0;
+  background-repeat: no-repeat;
+  background-size: 1px 100%;
+  background-image:
+    linear-gradient(to bottom, $blue 0%, $pink 100%),
+    linear-gradient(to bottom, $blue 0%, $pink 100%);
 
   ul {
     list-style: none;
@@ -79,8 +95,8 @@ main {
     }
 
     input[type="radio"]:checked + label {
-      background-color: $pink;
-      color: white;
+      background-color: $yellow;
+      color: #000;
     }
   }
 
@@ -90,5 +106,6 @@ main {
     left: 0;
     right: 0;
     text-align: center;
+    color: $silver;
   }
 }
