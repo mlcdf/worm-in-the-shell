@@ -1,92 +1,108 @@
-/* global arraysEqual */
-
 /**
- * Initialize a shell
+ * Shell
+ * Create a pseudo shell
  */
-const shell = () => {
-  const $shell = $('.shell')
-  const $form = $shell.find('form')
+(function ($) {
+  $.fn.shell = function (options) {
+    let idCount
+    let $form
 
-  $form.find('input').focus()
-
-  $shell.on('click', () => {
-    $form.find('input:checked + label').focus()
-  })
-
-  const keysPressed = []
-  const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 'a', 'b']
-
-  // Fire events on keyPressed
-  $(document).keypress(evt => {
-    // Submit the user choice
-    if (evt.which === 13) { // 13 => ENTER key
-      $form.submit()
+    const defaults = {
+      url: 'http://localhost:3000/?section='
     }
+    const opts = $.extend({}, defaults, options)
 
-    // Handle Komani Code
-    const key = evt.keyCode || String.fromCharCode(evt.which)
-    keysPressed.push(key)
-
-    if (keysPressed.length > 10) {
-      keysPressed.shift()
-    }
-
-    if (arraysEqual(keysPressed, konamiCode)) {
-      // TODO: do something
-    }
-  })
-
-  const formTemplate = doT.template(`<li>&nbsp;
-  </li>
-    <li>
-      <span class="yellow">?</span> WHAT SHOULD I DO? <span class="grey">(</span>&uarr;&darr; <span class="grey">+</span> ENTER<span class="grey">)</span>
+    const formTemplate = doT.template(`<li>&nbsp;
     </li>
-    <li>
-      <form action="">
-        {{~ it.inputs :input:index }}
-        <div>
-          <input type="radio" id="radio{{=index+it.index}}" name="action" value="{{=input.value}}" checked="checked">
-          <label for="radio{{=index+it.index}}">{{=input.label}}</label>
-        </div>
-        {{~}}
-      </form>
-  </li>`)
+      <li>
+        <span class="yellow">?</span> WHAT SHOULD I DO? <span class="grey">(</span>&uarr;&darr; <span class="grey">+</span> ENTER<span class="grey">)</span>
+      </li>
+      <li>
+        <form action="">
+          {{~ it.inputs :input:index }}
+          <div>
+            <input type="radio" id="radio{{=index+it.index}}" name="action" value="{{=input.value}}" checked="checked">
+            <label for="radio{{=index+it.index}}">{{=input.label}}</label>
+          </div>
+          {{~}}
+        </form>
+    </li>`)
 
-  function updateScroll() {
-    const element = $shell.find('ul')
-    element.scrollTop(element.prop('scrollHeight'))
-  }
+    const reset = () => {
+      $(this).find('ul').empty()
+    }
 
-  let idCounter = 3
+    const updateScroll = () => {
+      const element = $(this).find('ul')
+      element.scrollTop(element.prop('scrollHeight'))
+    }
 
-  // Core
-  $form.on('submit', evt => {
-    evt.preventDefault()
-    const val = $form.find('input:checked').val()
-    $.getJSON('http://0.0.0.0:3000/?section=' + val).done(data => {
-      idCounter += 2
-      data.index = idCounter
+    const hydrateView = (data, template) => {
+      const deferred = $.Deferred()
+      // console.log(data.paragraphs.length)
+      idCount += data.paragraphs.length
+      data.index = idCount
 
-      let time = 0
+      let delay = 0
 
       $.each(data.paragraphs, (index, paragraph) => {
         setTimeout(() => {
-          $(`<li>${paragraph}</li>`).appendTo($shell.find('ul'))
+          $(`<li>${paragraph}</li>`).appendTo($(this).find('ul'))
           updateScroll()
-        }, time += 300)
+        }, delay += 300)
       })
 
       setTimeout(() => {
-        $(formTemplate(data)).appendTo($shell.find('ul'))
+        $(template(data)).appendTo($(this).find('ul'))
         updateScroll()
-        $shell.off()
-        $shell.find('form').last().find('input').focus()
-        $shell.on('click', () => {
-          $shell.find('form').last().find('input').focus()
+        $(this).off()
+        $(this).find('form').last().find('input').focus()
+        $(this).on('click', () => {
+          $(this).find('form').last().find('input').focus()
         })
-      }, time += 300)
-    })
-  })
-}
+      }, delay += 300)
 
-shell()
+      setTimeout(() => {
+        deferred.resolve()
+      }, delay)
+      return deferred.promise()
+    }
+
+    const init = () => {
+      reset()
+
+      $.get(opts.url + 'start')
+        .then(data => {
+          return hydrateView(data, formTemplate)
+        }).done(() => {
+          $form = $(this).find('form')
+          $form.find('input').focus()
+
+          $(this).on('click', () => {
+            $form.find('input:checked + label').focus()
+          })
+
+          $(document).keypress(evt => {
+            // Submit the user choice
+            if (evt.which === 13) { // 13 => ENTER keypress
+              $form.submit()
+              console.log('test')
+            }
+          })
+
+          $form.on('submit', evt => {
+            console.log('ENTER')
+            evt.preventDefault()
+            const val = $form.find('input:checked').val()
+
+            // retrive data
+            $.get(opts.url + val).done(data => {
+              hydrateView(data, formTemplate)
+            })
+          })
+        })
+    }
+
+    init()
+  }
+})(jQuery)
