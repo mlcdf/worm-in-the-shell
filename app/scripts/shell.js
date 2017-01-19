@@ -4,50 +4,57 @@
  */
 (function ($) {
   $.fn.shell = function (options) {
-    let idCount
-    let $form
-
     const defaults = {
       url: 'http://localhost:3000/?section='
     }
     const opts = $.extend({}, defaults, options)
 
-    const formTemplate = doT.template(`<li>&nbsp;
+    const sectionTemplate = doT.template(`<li>&nbsp;
     </li>
-      <li>
-        <span class="yellow">?</span> WHAT SHOULD I DO? <span class="grey">(</span>&uarr;&darr; <span class="grey">+</span> ENTER<span class="grey">)</span>
-      </li>
-      <li>
-        <form action="">
-          {{~ it.inputs :input:index }}
-          <div>
-            <input type="radio" id="radio{{=index+it.index}}" name="action" value="{{=input.value}}" checked="checked">
-            <label for="radio{{=index+it.index}}">{{=input.label}}</label>
-          </div>
-          {{~}}
-        </form>
+    <li class="bold">
+      <span class="yellow">? </span>What would you like to do?
+    </li>
+    <li class="actions actions-js">
+      <ol>
+      {{~ it.actions :action }}
+        <li action="{{= action.id }}">
+          {{= action.label }}
+        </li>
+      {{~}}
+      </ol>
+    </li>
+    <li class="input">
+      <span class="bold yellow">&#62 </span>
+      <input class="input-js" type="text" autocomplete="off" name="user-choice" placeholder="Enter your choice here">
     </li>`)
 
+    /**
+     * Reset the shell
+     */
     const reset = () => {
       $(this).find('ul').empty()
     }
 
+    /**
+     * Update the scroll
+     */
     const updateScroll = () => {
       const element = $(this).find('ul')
       element.scrollTop(element.prop('scrollHeight'))
     }
 
+    /**
+     * Update the shell with new elements
+     * @param {Object} data
+     * @param {Any} template
+     */
     const hydrateView = (data, template) => {
       const deferred = $.Deferred()
-      // console.log(data.paragraphs.length)
-      idCount += data.paragraphs.length
-      data.index = idCount
-
       let delay = 0
 
-      $.each(data.paragraphs, (index, paragraph) => {
+      $.each(data.texts, (index, text) => {
         setTimeout(() => {
-          $(`<li>${paragraph}</li>`).appendTo($(this).find('ul'))
+          $(`<li>${text}</li>`).appendTo($(this).find('ul'))
           updateScroll()
         }, delay += 300)
       })
@@ -55,50 +62,44 @@
       setTimeout(() => {
         $(template(data)).appendTo($(this).find('ul'))
         updateScroll()
-        $(this).off()
-        $(this).find('form').last().find('input').focus()
-        $(this).on('click', () => {
-          $(this).find('form').last().find('input').focus()
-        })
       }, delay += 300)
 
       setTimeout(() => {
         deferred.resolve()
       }, delay)
+
       return deferred.promise()
     }
 
+    /**
+     * Initialize the shell
+     */
     const init = () => {
       reset()
 
       $.get(opts.url + 'start')
         .then(data => {
-          return hydrateView(data, formTemplate)
+          return hydrateView(data, sectionTemplate)
         }).done(() => {
-          $form = $(this).find('form')
-          $form.find('input').focus()
+          let $actions = $(this).find('.actions-js:last')
+          let $input = $(this).find('input:last').focus()
+          let action
 
-          $(this).on('click', () => {
-            $form.find('input:checked + label').focus()
-          })
+          // Register event
+          $(document).on('keypress', evt => {
+            if (evt.which === 13) { // 13 => ENTER key
+              action = $actions.find(`li:nth-child(${$input.val()})`).attr('action')
 
-          $(document).keypress(evt => {
-            // Submit the user choice
-            if (evt.which === 13) { // 13 => ENTER keypress
-              $form.submit()
-              console.log('test')
+              // Retrieve data
+              $.get(opts.url + action)
+                .then(data => {
+                  return hydrateView(data, sectionTemplate)
+                }).done(() => {
+                  // Update variables
+                  $actions = $(this).find('.actions-js:last')
+                  $input = $(this).find('input:last').focus()
+                })
             }
-          })
-
-          $form.on('submit', evt => {
-            console.log('ENTER')
-            evt.preventDefault()
-            const val = $form.find('input:checked').val()
-
-            // retrive data
-            $.get(opts.url + val).done(data => {
-              hydrateView(data, formTemplate)
-            })
           })
         })
     }

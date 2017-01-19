@@ -7,15 +7,31 @@ $pink: #ff4081;
 $yellow: #ffeb3b;
 $blue: #40c4ff;
 
+$mono: monaco, menlo, /* MacOS and iOS */
+      'Consolas', /* Windows */
+
+      roboto mono, noto mono, /* Google stuff */
+      'Droid Sans', /* Old Google stuff */
+      'DejaVu Sans Mono', cousine, ubuntu mono, /* Linux stuff */
+      'Fira Mono', /* Firefox OS */
+      'Courrier', /* Windows stuff */
+      'Liberation Mono', /* Linux */
+      monospace; /* Everything else */
+
 body {
   background: #000;
-  font-family: Ubuntu, Fira, Monospace, Ubuntu, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: #F5F5F5;
+  font-family: $mono;
+  color: #eee;
   font-size: 18px;
   line-height: 1.75rem;
   margin: 0;
   padding: 0;
   height: 100vh;
+}
+
+.bold {
+  font-weight: bold;
+  color: #fff;
 }
 
 .grey {
@@ -56,7 +72,6 @@ main {
   // border: solid 1px $yellow;
   border-radius: 4px;
   padding: 32px;
-  font-family: monospace;
   font-size: 16px;
   position: relative;
   border-top: 1px solid $blue;
@@ -78,27 +93,40 @@ main {
     height: 600px;
   }
 
-  form {
-    display: flex;
-    flex-direction: column;
-    margin-top: 16px;
-    margin-bottom: 32px;
+  .actions {
+    margin-bottom: 12px;
 
-    // Hack
-    input[type="radio"] {
-      position: fixed;
-      opacity: 0;
+    ol {
+      padding-left: 18px;
     }
 
-    label {
-      margin-left: 18px;
+    ol li {
+      list-style: none;
+      counter-increment: myIndex;
     }
-
-    input[type="radio"]:checked + label {
-      background-color: $yellow;
-      color: #000;
+    ol li:before {
+      content:"("counter(myIndex)")";
     }
   }
+
+  .input {
+    margin-bottom: 16px;
+  }
+
+  input {
+    background-color: transparent;
+    color: white;
+    border: none;
+    font-size: 16px;
+    width: 260px;
+  }
+
+  ::placeholder {
+    color: $silver;
+    font-family: $mono;
+    font-size: 16px;
+  }
+
 
   .status-bar {
     position: absolute;
