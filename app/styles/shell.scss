@@ -1,0 +1,105 @@
+$silver: #666;
+$grey: #333;
+$pink: #ff4081;
+$yellow: #ffeb3b;
+$blue: #40c4ff;
+
+$mono: monaco, menlo, /* MacOS and iOS */
+      'Consolas', /* Windows */
+      roboto mono, noto mono, /* Google stuff */
+      'Droid Sans', /* Old Google stuff */
+      'DejaVu Sans Mono', cousine, ubuntu mono, /* Linux stuff */
+      'Fira Mono', /* Firefox OS */
+      'Courrier', /* Windows stuff */
+      'Liberation Mono', /* Linux */
+      monospace; /* Everything else */
+
+.bold {
+  font-weight: bold;
+  color: #fff;
+}
+
+.grey {
+ color: $grey;
+}
+
+.blue {
+  color: $blue;
+}
+
+.pink  {
+  color: $pink;
+}
+
+.shell {
+  min-height: 600px;
+  width: 800px;
+  border-radius: 4px;
+  padding: 32px;
+  font-size: 16px;
+  font-family: $mono;
+  color: #eee;
+  position: relative;
+  border-top: 1px solid $blue;
+  border-bottom: 1px solid $pink;
+  box-sizing: border-box;
+  background-position: 0 0, 100% 0;
+  background-repeat: no-repeat;
+  background-size: 1px 100%;
+  background-image:
+    linear-gradient(to bottom, $blue 0%, $pink 100%),
+    linear-gradient(to bottom, $blue 0%, $pink 100%);
+
+  ul {
+    list-style: none;
+    padding-top: 24px;
+    padding-left: 0;
+    margin: 0;
+    overflow-y: auto;
+    height: 600px;
+  }
+
+  .actions {
+    margin-bottom: 12px;
+
+    ol {
+      padding-left: 18px;
+    }
+
+    ol li {
+      list-style: none;
+      counter-increment: myIndex;
+    }
+
+    ol li:before {
+      content:"("counter(myIndex)")";
+    }
+  }
+
+  .input {
+    margin-bottom: 16px;
+  }
+
+  input {
+    background-color: transparent;
+    color: white;
+    border: none;
+    font-size: 16px;
+    width: 260px;
+  }
+
+  ::placeholder {
+    color: $silver;
+    font-family: $mono;
+    font-size: 16px;
+  }
+
+  .status-bar {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: $silver;
+  }
+}
