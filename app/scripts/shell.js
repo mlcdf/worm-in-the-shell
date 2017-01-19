@@ -12,7 +12,7 @@
     const sectionTemplate = doT.template(`<li>&nbsp;
     </li>
     <li class="bold">
-      <span class="yellow">? </span>What would you like to do?
+      <span class="blue   ">? </span>What would you like to do?
     </li>
     <li class="actions actions-js">
       <ol>
@@ -24,7 +24,7 @@
       </ol>
     </li>
     <li class="input">
-      <span class="bold yellow">&#62 </span>
+      <span class="bold pink">&#62 </span>
       <input class="input-js" type="text" autocomplete="off" name="user-choice" placeholder="Enter your choice here">
     </li>`)
 
