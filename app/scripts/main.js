@@ -3,5 +3,7 @@ $(document).ready(() => {
     // TODO: do something
   })
 
-  $('.shell').shell()
+  $('.shell').shell({
+    url: 'https://wits-api.mlcdf.com/?section='
+  })
 })
