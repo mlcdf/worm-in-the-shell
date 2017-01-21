@@ -4,6 +4,7 @@
  */
 (function ($) {
   $.fn.shell = function (options) {
+    const shellListView = $(this).find('ul')
     const defaults = {
       url: 'http://localhost:3000/?section='
     }
@@ -23,24 +24,24 @@
       {{~}}
       </ol>
     </li>
-    <li class="input">
+    <li class="input-row">
       <span class="bold pink">&#62 </span>
       <input class="input-js" type="text" autocomplete="off" name="user-choice" placeholder="n°">
-      <span class="info"></span>
+      <span class="info-js"></span>
     </li>`)
 
     /**
      * Reset the shell
      */
     const reset = () => {
-      $(this).find('ul').empty()
+      shellListView.empty()
     }
 
     /**
      * Update the scroll
      */
     const updateScroll = () => {
-      const element = $(this).find('ul')
+      const element = shellListView
       element.scrollTop(element.prop('scrollHeight'))
     }
 
@@ -55,13 +56,13 @@
 
       $.each(data.texts, (index, text) => {
         setTimeout(() => {
-          $(`<li>${text}</li>`).appendTo($(this).find('ul'))
+          $(`<li>${text}</li>`).appendTo(shellListView)
           updateScroll()
         }, delay += 300)
       })
 
       setTimeout(() => {
-        $(template(data)).appendTo($(this).find('ul'))
+        $(template(data)).appendTo(shellListView)
         updateScroll()
       }, delay += 300)
 
@@ -103,15 +104,16 @@
         .then(data => {
           return hydrateView(data, sectionTemplate)
         }).done(() => {
-          let $actions = $(this).find('.actions-js')
-          let $input = $(this).find('input').focus()
-          let $info = $(this).find('.info')
+          let $actions = shellListView.find('.actions-js')
+          let $input = shellListView.find('.input-js').focus()
+          let $info = shellListView.find('.info-js')
           let action
 
           // Register event
           $(document).on('keypress', evt => {
             if (evt.which === 13) { // 13 => ENTER key
-              if ($input.val() < 1 || $input.val() > $actions.find('li[action]').length) {
+              // If input is not valid
+              if (isNaN($input.val()) || $input.val() < 1 || $input.val() > $actions.find('li[action]').length) {
                 updateInputState(false, $input, $info)
                 return
               }
@@ -124,9 +126,9 @@
                   return hydrateView(data, sectionTemplate)
                 }).done(() => {
                   // Update variables
-                  $actions = $(this).find('.actions-js:last')
-                  $input = $(this).find('input:last').focus()
-                  $info = $(this).find('.info:last')
+                  $actions = shellListView.find('.actions-js:last')
+                  $input = shellListView.find('.input-js:last').focus()
+                  $info = shellListView.find('.info-js:last')
                 })
             }
           })
