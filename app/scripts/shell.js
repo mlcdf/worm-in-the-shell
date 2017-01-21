@@ -16,8 +16,8 @@
     </li>
     <li class="actions actions-js">
       <ol>
-      {{~ it.actions :action }}
-        <li action="{{= action.id }}">
+      {{~ it.actions :action:index }}
+        <li action="{{= action.id }}"> <span class="silver">(</span>{{= index + 1 }}<span class="silver">)</span>
           {{= action.label }}
         </li>
       {{~}}
