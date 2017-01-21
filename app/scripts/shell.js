@@ -1,8 +1,9 @@
-/**
- * Shell
- * Create a pseudo shell
- */
 (function ($) {
+  /**
+   * Shell
+   * Create a pseudo shell
+   * @param {Object} options - A set of options which will erase the default ones.
+   */
   $.fn.shell = function (options) {
     const shellListView = $(this).find('ul')
     const defaults = {
