@@ -1,0 +1,11 @@
+# humanstxt.org/
+
+# TEAM -----
+
+  Maxime Le Conte des Floris (@mlcdf) - Design & Development
+
+# TECHNOLOGY -----
+
+  HTML5, CSS3, jQuery
+  Sass, Gulp, Browsersync
+  Autoprefixer, cssnano
