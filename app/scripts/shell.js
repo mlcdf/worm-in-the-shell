@@ -12,7 +12,7 @@
     const sectionTemplate = doT.template(`<li>&nbsp;
     </li>
     <li class="bold">
-      <span class="blue   ">? </span>What would you like to do?
+      <span class="blue">? </span>What would you like to do?
     </li>
     <li class="actions actions-js">
       <ol>
@@ -25,7 +25,8 @@
     </li>
     <li class="input">
       <span class="bold pink">&#62 </span>
-      <input class="input-js" type="text" autocomplete="off" name="user-choice" placeholder="Enter your choice here">
+      <input class="input-js" type="text" autocomplete="off" name="user-choice" placeholder="n°">
+      <span class="info"></span>
     </li>`)
 
     /**
@@ -72,6 +73,27 @@
     }
 
     /**
+     * Update the view the new input state
+     * @param {bool} isValid
+     * @param {jQuery Collection} $input
+     * @param {jQuery Collection} $info
+     */
+    const updateInputState = (isValid, $input, $info) => {
+      if (isValid) {
+        $info.addClass('blue')
+        $info.removeClass('pink')
+        $info.text('✔')
+        $input.prop('disabled', true)
+        return true
+      }
+
+      $info.addClass('pink')
+      $info.removeClass('blue')
+      $info.text('✖')
+      return false
+    }
+
+    /**
      * Initialize the shell
      */
     const init = () => {
@@ -81,13 +103,19 @@
         .then(data => {
           return hydrateView(data, sectionTemplate)
         }).done(() => {
-          let $actions = $(this).find('.actions-js:last')
-          let $input = $(this).find('input:last').focus()
+          let $actions = $(this).find('.actions-js')
+          let $input = $(this).find('input').focus()
+          let $info = $(this).find('.info')
           let action
 
           // Register event
           $(document).on('keypress', evt => {
             if (evt.which === 13) { // 13 => ENTER key
+              if ($input.val() < 1 || $input.val() > $actions.find('li[action]').length) {
+                updateInputState(false, $input, $info)
+                return
+              }
+              updateInputState(true, $input, $info)
               action = $actions.find(`li:nth-child(${$input.val()})`).attr('action')
 
               // Retrieve data
@@ -98,6 +126,7 @@
                   // Update variables
                   $actions = $(this).find('.actions-js:last')
                   $input = $(this).find('input:last').focus()
+                  $info = $(this).find('.info:last')
                 })
             }
           })
