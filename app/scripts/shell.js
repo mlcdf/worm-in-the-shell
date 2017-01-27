@@ -86,13 +86,11 @@
         $info.removeClass('pink')
         $info.text('✔')
         $input.prop('disabled', true)
-        return true
+      } else {
+        $info.addClass('pink')
+        $info.removeClass('blue')
+        $info.text('✖')
       }
-
-      $info.addClass('pink')
-      $info.removeClass('blue')
-      $info.text('✖')
-      return false
     }
 
     /**
