@@ -7,7 +7,7 @@
   $.fn.godmode = function (options) {
     const deferred = $.Deferred()
     const defaults = {
-      code: [47, 103, 111, 100, 109, 111, 100, 101]
+      code: [47, 103, 111, 100, 109, 111, 100, 101] // => /godmode
     }
     const opts = $.extend({}, defaults, options)
     const keysPressed = []
