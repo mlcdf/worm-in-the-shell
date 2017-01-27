@@ -7,9 +7,9 @@ Made as part of a school project (jQuery courses).
 
 Requires Node.js >= 4.
 
-Clone the repository on your machine
+Clone the repository on your machine or [download](https://github.com/mlcdf/worm-in-the-shell/archive/master.zip) the zip
 ```console
-$ git clone git clone https://github.com/mlcdf/worm-in-the-shell cd worm-in-the-shell
+$ git clone git clone https://github.com/mlcdf/worm-in-the-shell && cd worm-in-the-shell
 ```
 
 Install global dependencies
