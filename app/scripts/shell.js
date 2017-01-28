@@ -99,6 +99,8 @@
     const init = () => {
       reset()
 
+      const gameManager = GameManager()
+
       $.get(opts.url + 'start')
         .then(data => {
           return hydrateView(data, sectionTemplate)
@@ -122,6 +124,16 @@
               // Retrieve data
               $.get(opts.url + action)
                 .then(data => {
+                  if (data.wormProgress) {
+                    gameManager.wormProgress()
+                  }
+
+                  if (gameManager.wormHasWon()) {
+                    $.get(opts.url + 'game-over').then(data => {
+                      hydrateView(data, sectionTemplate)
+                    })
+                  }
+
                   return hydrateView(data, sectionTemplate)
                 }).done(() => {
                   // Update variables
