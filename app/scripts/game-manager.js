@@ -1,3 +1,7 @@
+/**
+ * GameManager factory
+ * @return {Object} GameManager
+ */
 const GameManager = () => {
   const worm = {
     progression: 0
