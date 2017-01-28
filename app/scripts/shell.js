@@ -129,9 +129,10 @@
                   }
 
                   if (gameManager.wormHasWon()) {
-                    $.get(opts.url + 'game-over').then(data => {
+                    $.get(opts.url + 'game-over').done(data => {
                       hydrateView(data, sectionTemplate)
                     })
+                    return
                   }
 
                   return hydrateView(data, sectionTemplate)
