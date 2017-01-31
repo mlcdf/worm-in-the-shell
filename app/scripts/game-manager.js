@@ -3,36 +3,30 @@
  * @return {Object} GameManager
  */
 const GameManager = () => {
-  const worm = {
-    progression: 0
+  const player = {
+    lifes: 2
   }
-
-  // Number of critical components in the system.
-  const systemComponents = 2
 
   const reset = () => {
-    worm.progression = 0
+    player.lifes = 2
   }
 
-  const wormHasWon = () => {
-    if (worm.progression === systemComponents) {
+  const isPlayerDead = () => {
+    if (player.lifes === 0) {
       return true
     }
     return false
   }
 
-  const wormProgress = () => {
-    worm.progression++
+  const removePlayerLife = () => {
+    player.lifes--
   }
 
-  const wormProgression = () => {
-    return worm.progression
-  }
+  reset()
 
   return {
     reset,
-    wormHasWon,
-    wormProgress,
-    wormProgression
+    isPlayerDead,
+    removePlayerLife
   }
 }

@@ -127,10 +127,10 @@
               $.get(opts.url + action)
                 .then(data => {
                   if (data.wormProgress) {
-                    gameManager.wormProgress()
+                    gameManager.removePlayerLife()
                   }
 
-                  if (gameManager.wormHasWon()) {
+                  if (gameManager.isPlayerDead()) {
                     $.get(opts.url + 'game-over').done(data => {
                       hydrateView(data, sectionTemplate)
                     })
