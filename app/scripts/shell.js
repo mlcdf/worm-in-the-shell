@@ -61,13 +61,13 @@
         setTimeout(() => {
           $(`<li>${text}</li>`).appendTo(shellListView)
           updateScroll()
-        }, delay += 300)
+        }, delay += 600)
       })
 
       setTimeout(() => {
         $(template(data)).appendTo(shellListView)
         updateScroll()
-      }, delay += 300)
+      }, delay += 600)
 
       setTimeout(() => {
         deferred.resolve()
