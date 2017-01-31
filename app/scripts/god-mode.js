@@ -15,7 +15,6 @@
     $(this).keypress(evt => {
       const key = evt.keyCode || String.fromCharCode(evt.which)
       keysPressed.push(key)
-      console.log(key)
 
       if (keysPressed.length > opts.code.length) {
         keysPressed.shift()
