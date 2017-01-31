@@ -8,7 +8,7 @@ const GameManager = () => {
   }
 
   // Number of critical components in the system.
-  const systemComponents = 5
+  const systemComponents = 2
 
   const reset = () => {
     worm.progression = 0
