@@ -13,6 +13,7 @@
 
     const sectionTemplate = doT.template(`<li>&nbsp;
     </li>
+    {{? it.actions.length > 0}}
     <li class="bold">
       <span class="blue">? </span>What would you like to do?
     </li>
@@ -29,7 +30,8 @@
       <span class="bold pink">&#62 </span>
       <input class="input-js" type="text" autocomplete="off" name="user-choice" placeholder="n°">
       <span class="info-js"></span>
-    </li>`)
+    </li>
+    {{?}}`)
 
     /**
      * Reset the shell
