@@ -7,7 +7,7 @@
   $.fn.godmode = function (options) {
     const deferred = $.Deferred()
     const defaults = {
-      code: [47, 103, 111, 100, 109, 111, 100, 101] // => /godmode
+      code: [38, 38, 40, 40, 37, 39, 37, 39, 'b', 'a'] // => Konami Code
     }
     const opts = $.extend({}, defaults, options)
     const keysPressed = []
@@ -15,6 +15,7 @@
     $(this).keypress(evt => {
       const key = evt.keyCode || String.fromCharCode(evt.which)
       keysPressed.push(key)
+      console.log(key)
 
       if (keysPressed.length > opts.code.length) {
         keysPressed.shift()
