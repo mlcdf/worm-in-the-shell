@@ -1,6 +1,6 @@
 $(document).ready(() => {
   $(document).godmode().done(() => {
-    // TODO: do something
+    console.log('3221')
   })
 
   $('.shell').shell({
