@@ -43,7 +43,8 @@
       "jquery"
     ],
     "globals": [
-      "doT"
+      "doT",
+      "GameManager"
     ],
     "rules": {
       "new-cap": 0
@@ -52,7 +53,9 @@
       {
         "files": "test/**/*.js",
         "envs": [
-          "mocha"
+          "browser",
+          "mocha",
+          "chai"
         ]
       },
       {
